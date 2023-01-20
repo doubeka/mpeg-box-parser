@@ -16,7 +16,7 @@ browser
 <script src="../boxparser.js"></script>
 <script src="../mpeg.js"></script>
 <script>
-    var parse = new mpeg()
+    var parse = new MPEGParse()
     parse.layoutfromURL(url).then(...)
 </script>
 ```
