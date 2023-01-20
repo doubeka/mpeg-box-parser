@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <title>MPEG MDAT Box Parser</title>
-      <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
-      <script src="../boxparser.js"></script>
-      <script src="../parse.js"></script>
-      <script>
-       function buttonAction (ev){
+
+<head>
+   <title>MPEG MDAT Box Parser</title>
+   <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+   <script src="../boxparser.js"></script>
+   <script src="../mpeg.js"></script>
+   <script src="../xmlutils.js"></script>
+   <script>
+      function base64ToImage(base64Data, c) {
+         var img = new Image();
+         img.onload = function () {
+            c(img);
+         };
+         img.src = base64Data;
+      }
+      function printMdatSmpteImages(ev) {
          var url = ev.urlinput.value
-         var parse = new parser()
+         var parse = new MPEGParse()
          var MDATContent = parse.layoutfromURL(url)
-            .then((layout)=>{
-               if(layout.mdat && layout.mdat.data){
+            .then((layout) => {
+               if (layout.mdat && layout.mdat.data) {
                   console.log("Content of mdat box is: ", layout.mdat.data)
+                  var XML = new XMLUtils(layout.mdat.data)
+                  var imageArray = XML.getBASE64SmpteImageElements()
+                  imageArray.forEach(function (imageData) {
+                     base64ToImage(imageData, function (img) {
+                        document.body.appendChild(img);
+                     })
+                  })
                }
             })
-        }
-      </script>
-   </head>
-   <body>
-      <form name="myForm" action="" method="GET">
-         Enter url of mpeg file:
-         <input type="text" name="urlinput" value="http://demo.castlabs.com/tmp/text0.mp4">
-         <input type="button" name="button" value="Parse" onClick="buttonAction(this.form)">
-      </form>
-   </body>
+      }
+   </script>
+</head>
+
+<body>
+   <form name="parseForm" action="" method="GET">
+      Enter url of mpeg file:
+      <input type="text" name="urlinput" value="">
+      <input type="button" name="button" value="Parse" onClick="printMdatSmpteImages(this.form)">
+   </form>
+</body>
+
 </html>
