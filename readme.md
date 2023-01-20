@@ -1,6 +1,6 @@
 # MPEG­4 - Box Parser
 
-Simple parser for ISO ISO Base Media File Format MPEG­4 Standart. 
+Simple parser for MPEG­4 ISO Base Media File Format MPEG­4 Standart. 
 Returns content of MDAT box.
 
 ## Requirements
