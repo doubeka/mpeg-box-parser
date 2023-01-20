@@ -1,0 +1,31 @@
+{
+  "name": "mpeg-4-parser",
+  "version": "1.0.0",
+  "description": "Parser of MDAT boxes for MPEG­4 Part 12 ISO Base Media File Format",
+  "main": "parser.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doubeka/mpeg-box-parser.git"
+  },
+  "keywords": [
+    "mpeg-4"
+  ],
+  "author": "Andrej Doubek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doubeka/mpeg-box-parser/issues"
+  },
+  "homepage": "https://github.com/doubeka/mpeg-box-parser#readme",
+  "dependencies": {
+    "jest": "^29.3.1"
+  },
+  "devDependencies": {
+    "jest-fetch-mock": "^3.0.3"
+  }
+}
