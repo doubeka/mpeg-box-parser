@@ -2,7 +2,7 @@
   "name": "mpeg-4-parser",
   "version": "1.0.0",
   "description": "Parser of MDAT boxes for MPEG­4 Part 12 ISO Base Media File Format",
-  "main": "parser.js",
+  "main": "./examples/node.js",
   "directories": {
     "example": "examples"
   },

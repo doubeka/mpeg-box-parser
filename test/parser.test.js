@@ -1,22 +1,22 @@
-require('jest-fetch-mock').enableMocks()
-const MPEGParse = require('../parse');
+const MPEGParse = require('../mpeg');
 const parse = new MPEGParse()
-const url = 'http://techslides.com/demos/sample-videos/small.mp4'
+const validUrl = 'http://techslides.com/demos/sample-videos/small.mp4'
+const testLayout = { 'ftyp': {}, 'free': {}, 'mdat': {}, 'moov': {} }
 
-const testLayout = {'ftyp':{}, 'free':{}, 'mdat':{}, 'moov':{}}
+describe('Basic functional tests for MPEG Parser', () => {
+  test("Test of valid URL string", async () => {
+    const parsedData = await parse.layoutfromURL(validUrl)
+    const boxes = Object.keys(parsedData)
+    expect(boxes).toEqual(Object.keys(testLayout))
+  });
+  test("Test of invalid URL string", async () => {
+    const invalidUrl = 'http://techslides.com/demos/sample-videos/small.jpg'
+    await expect(async () => await parse.layoutfromURL(invalidUrl)).rejects.toThrow('Invalid file URL')
+  });
+  test("Test layout parsing", async () => {
+    const parsedData = await parse.layoutfromURL(validUrl)
+    const boxes = Object.keys(parsedData)
+    expect(boxes).toEqual(Object.keys(testLayout))
+  });
 
-beforeEach(() => {
-  fetch.resetMocks()
-})
-
-test("Test rejected url of parse", async () => {
-  fetch.mockReject(() => Promise.reject("Unavailable"));
-  await expect(async () => await parse.layoutfromURL(url)).rejects.toThrow('Service Error: Unavailable')
-});
-
-test("Test parsing of url", async () => {
-  fetch.disableMocks()
-  const parsedData = await parse.layoutfromURL(url)
-  const boxes = Object.keys(parsedData)
-  expect(boxes).toEqual(Object.keys(testLayout)) 
 });
