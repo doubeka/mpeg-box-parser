@@ -4,18 +4,27 @@
         module.exports = factory();
     } else {
         // running in browser
-        window.parser = factory();
+        window.XMLUtils = factory();
     }
-})(function() {
-    function XMLUtils(xmlData){ 
+})(function () {
+    /**
+     * @class XMLUtils
+     * @classdesc Class for parsing XML SMPTE-TT standart files
+     * @param {string} xmlData - XML SMPTE-TT data to be parsed
+     * Limited support for smpte:image elements
+     */
+    function XMLUtils(xmlData) {
         this.DOMParser = new DOMParser()
-        this.parsedXML = parser.parseFromString(xmlData,"text/xml")
+        this.parsedXML = this.DOMParser.parseFromString(xmlData, "text/xml")
     }
     XMLUtils.prototype = {
-            getImageElement: function(xmlData) {
-               
-            },
-    }   
-  return MPEGParse
+        getBASE64SmpteImageElements: function () {
+            var imageElements = this.parsedXML.getElementsByTagName('smpte:image')
+            return Array.from(imageElements).map(function(image){
+                return "data:image/png;base64,"+image.innerHTML.trim()
+            })
+        },
+    }
+    return XMLUtils
 })
 
