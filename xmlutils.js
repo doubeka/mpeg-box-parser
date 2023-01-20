@@ -20,8 +20,8 @@
     XMLUtils.prototype = {
         getBASE64SmpteImageElements: function () {
             var imageElements = this.parsedXML.getElementsByTagName('smpte:image')
-            return Array.from(imageElements).map(function(image){
-                return "data:image/png;base64,"+image.innerHTML.trim()
+            return Array.from(imageElements).map(function (image) {
+                return "data:image/png;base64," + image.innerHTML.trim()
             })
         },
     }
