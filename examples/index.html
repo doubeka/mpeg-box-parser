@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>MPEG MDAT Box Parser</title>
+      <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+      <script src="../boxparser.js"></script>
+      <script src="../parse.js"></script>
+      <script>
+       function buttonAction (ev){
+         var url = ev.urlinput.value
+         var parse = new parser()
+         var MDATContent = parse.layoutfromURL(url)
+            .then((layout)=>{
+               if(layout.mdat && layout.mdat.data){
+                  console.log("Content of mdat box is: ", layout.mdat.data)
+               }
+            })
+        }
+      </script>
+   </head>
+   <body>
+      <form name="myForm" action="" method="GET">
+         Enter url of mpeg file:
+         <input type="text" name="urlinput" value="http://demo.castlabs.com/tmp/text0.mp4">
+         <input type="button" name="button" value="Parse" onClick="buttonAction(this.form)">
+      </form>
+   </body>
+</html>
